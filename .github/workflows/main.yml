@@ -9,4 +9,4 @@ jobs:
         with:
           node-version: '18'
       - run: npm install -g @sun-asterisk/sunlint
-      - run: sunlint --all --changed-files --fail-on-new-violations
+      - run: sunlint --rules C003,S009

@@ -2,7 +2,7 @@ import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { ConfigService } from '@nestjs/config';
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
-import { VersioningType } from '@nestjs/common';
+import { ValidationPipe, VersioningType } from '@nestjs/common';
 import { SWAGGER_DOCS_PATH } from './common/constants/swagger.constants';
 
 
@@ -14,6 +14,16 @@ async function initializeApplication() {
     defaultVersion: '1',
     prefix: 'v',
   });
+
+  // Global validation pipe
+  app.useGlobalPipes(new ValidationPipe({
+    // Bắt buộc: Nếu DTO không có field đó, sẽ bị loại bỏ
+    whitelist: true,
+    // Tùy chọn: Tự động chuyển đổi kiểu dữ liệu (ví dụ: từ chuỗi sang số)
+    transform: true,
+    // Ngăn chặn các trường không được định nghĩa trong DTO
+    forbidNonWhitelisted: true,
+  }));
 
   const config = new DocumentBuilder()
     .setTitle('NestJS tutorial API')
