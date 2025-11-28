@@ -5,6 +5,7 @@ import { SignupDto } from './dto/signup.dto';
 import { LoginDto } from './dto/login.dto';
 import type { User } from '@prisma/client';
 import { EXPIRATION_TIME } from 'src/common/constants/auth.const';
+import { i18nValidationMessage } from 'nestjs-i18n';
 
 @Injectable()
 export class AuthService {
@@ -16,7 +17,7 @@ export class AuthService {
   async register(input: SignupDto) {
     const existingEmail = await this.usersService.findByEmail(input.email);
     if (existingEmail) {
-      throw new UnauthorizedException('Email is taken');
+      throw new UnauthorizedException(i18nValidationMessage('auth.validation.emailAlreadyExists'));
     }
 
     const user = await this.usersService.create(input);

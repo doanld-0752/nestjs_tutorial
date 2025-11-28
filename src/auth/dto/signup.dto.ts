@@ -2,6 +2,7 @@ import { IsEmail, IsString, IsOptional, IsUrl, Matches, IsNotEmpty, MinLength, M
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 import { PASSWORD_MIN_LENGTH, USERNAME_MAX_LENGTH, USERNAME_REGEX } from 'src/common/constants/validate-user.constants';
 import { IsMatch } from 'src/common/validators/is-match.decorator';
+import { i18nValidationMessage } from 'nestjs-i18n';
 
 export class SignupDto {
   @ApiProperty({
@@ -9,8 +10,8 @@ export class SignupDto {
     example: 'account@sun-asterisk.com',
     format: 'email'
   })
-  @IsEmail({}, { message: 'Please provide a valid email address' })
-  @IsNotEmpty({message: 'Email is required',})
+  @IsNotEmpty({ message: i18nValidationMessage('auth.validation.emailRequired') })
+  @IsEmail({}, { message: i18nValidationMessage('auth.validation.emailInvalid') })
   email: string;
 
   @ApiProperty({
@@ -20,9 +21,9 @@ export class SignupDto {
     pattern: USERNAME_REGEX.source
   })
   @IsString()
-  @IsNotEmpty({ message: 'Username is required' })
-  @MaxLength(USERNAME_MAX_LENGTH, { message: 'Username must be at most 30 characters long' })
-  @Matches(USERNAME_REGEX, { message: 'Username can only contain letters, numbers, and underscores' })
+  @IsNotEmpty({ message: i18nValidationMessage('auth.validation.usernameRequired') })
+  @MaxLength(USERNAME_MAX_LENGTH, { message: i18nValidationMessage('auth.validation.usernameTooLong', { maxLength: USERNAME_MAX_LENGTH }) })
+  @Matches(USERNAME_REGEX, { message: i18nValidationMessage('auth.validation.usernameInvalid') })
   username: string;
 
   @ApiProperty({
@@ -32,7 +33,7 @@ export class SignupDto {
     format: 'password'
   })
   @IsString()
-  @MinLength(PASSWORD_MIN_LENGTH, { message: 'Password must be at least 6 characters long' })
+  @MinLength(PASSWORD_MIN_LENGTH, { message: i18nValidationMessage('auth.validation.passwordTooShort', { minLength: PASSWORD_MIN_LENGTH }) })
   password: string;
 
   @ApiProperty({
@@ -42,8 +43,8 @@ export class SignupDto {
     format: 'password'
   })
   @IsString()
-  @MinLength(PASSWORD_MIN_LENGTH, { message: 'Password confirmation must be at least 6 characters long' })
-  @IsMatch('password', { message: 'Password confirmation must match password' })
+  @MinLength(PASSWORD_MIN_LENGTH, { message: i18nValidationMessage('auth.validation.passwordTooShort', { minLength: PASSWORD_MIN_LENGTH }) })
+  @IsMatch('password', { message: i18nValidationMessage('auth.validation.passwordsDoNotMatch') })
   passwordConfirmation: string;
 
   @ApiPropertyOptional({
@@ -61,6 +62,6 @@ export class SignupDto {
     format: 'url'
   })
   @IsOptional()
-  @IsUrl({}, { message: 'Please provide a valid image URL' })
+  @IsUrl({}, { message: i18nValidationMessage('auth.validation.imageUrlInvalid') })
   image?: string;
 }
