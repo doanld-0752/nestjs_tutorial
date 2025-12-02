@@ -1,0 +1,19 @@
+{
+  "validation": {
+    "titleRequired": "Title is required",
+    "titleTooShort": "Title must be at least {minLength} characters",
+    "titleTooLong": "Title must not be longer than {maxLength} characters",
+    "descriptionRequired": "Description is required",
+    "descriptionTooShort": "Description must be at least {minLength} characters",
+    "descriptionTooLong": "Description must not be longer than {maxLength} characters",
+    "bodyRequired": "Body is required",
+    "bodyTooShort": "Body must be at least {minLength} characters",
+    "bodyTooLong": "Body must not be longer than {maxLength} characters",
+    "permissionDenied": "You do not have permission to perform this action",
+    "titleAlreadyExists": "An article with this title already exists"
+  },
+  "not_found": {
+    "article": "Article not found",
+    "user": "User not found"
+  }
+}
