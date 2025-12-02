@@ -12,6 +12,7 @@ import { LIMIT_REQUEST, TTL_REQUEST } from 'src/common/constants/auth.const';
 import { I18nModule, AcceptLanguageResolver, QueryResolver } from 'nestjs-i18n';
 import * as path from 'path';
 import { DEFAULT_I18N_DIR, DEFAULT_LANGUAGE } from 'src/common/constants/app.constants';
+import { ArticlesModule } from './articles/articles.module';
 
 @Module({
   imports: [
@@ -40,6 +41,7 @@ import { DEFAULT_I18N_DIR, DEFAULT_LANGUAGE } from 'src/common/constants/app.con
         AcceptLanguageResolver, // Resolve language from Accept-Language header
       ],
     }),
+    ArticlesModule,
   ],
   controllers: [AppController],
   providers: [AppService,

@@ -1,10 +1,10 @@
 import { Controller, Get, Req, UseGuards, UseInterceptors, Header } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 import { ApiTags, ApiBearerAuth, ApiResponse, ApiOperation } from '@nestjs/swagger';
-import { UsersService } from './users.service';
 import { ResponseDto } from './dto/response.dto';
 import { HTTP_OK, HTTP_UNAUTHORIZED } from 'src/common/constants/response.constants';
 import { NoCacheInterceptor } from 'src/common/interceptors/no-cache.interceptor';
+import { CurrentUser } from 'src/common/decorators/current-user.decorator';
 
 @ApiTags('users')
 @Controller({
@@ -12,8 +12,6 @@ import { NoCacheInterceptor } from 'src/common/interceptors/no-cache.interceptor
 })
 @UseInterceptors(NoCacheInterceptor)
 export class UsersController {
-  constructor(private readonly usersService: UsersService) {}
-
   @ApiOperation({
     summary: 'Get current user profile',
     description: 'Returns the profile information of the currently authenticated user'
@@ -33,7 +31,7 @@ export class UsersController {
   @Header('Cache-Control', 'no-store, no-cache, must-revalidate, proxy-revalidate')
   @Header('Pragma', 'no-cache')
   @Header('Expires', '0')
-  getProfile(@Req() req: any): ResponseDto {
-    return req.user;
+  getProfile(@CurrentUser() user: any): ResponseDto {
+    return user;
   }
 }

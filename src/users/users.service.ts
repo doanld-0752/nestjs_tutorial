@@ -13,6 +13,10 @@ export class UsersService {
     return this.usersRepository.findByEmail(email);
   }
 
+  async findById(userId: number): Promise<User | null> {
+    return this.usersRepository.findOne(userId);
+  }
+
   async create(input: SignupDto): Promise<User> {
     const hashed = await bcrypt.hash(input.password, HASH_LENGTH);
 

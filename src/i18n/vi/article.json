@@ -1,0 +1,19 @@
+{
+  "validation": {
+    "titleRequired": "Tiêu đề là bắt buộc",
+    "titleTooShort": "Tiêu đề phải dài ít nhất {minLength} ký tự",
+    "titleTooLong": "Tiêu đề không được dài quá {maxLength} ký tự",
+    "descriptionRequired": "Mô tả là bắt buộc",
+    "descriptionTooShort": "Mô tả phải dài ít nhất {minLength} ký tự",
+    "descriptionTooLong": "Mô tả không được dài quá {maxLength} ký tự",
+    "bodyRequired": "Nội dung là bắt buộc",
+    "bodyTooShort": "Nội dung phải dài ít nhất {minLength} ký tự",
+    "bodyTooLong": "Nội dung không được dài quá {maxLength} ký tự",
+    "permissionDenied": "Bạn không có quyền thực hiện hành động này",
+    "titleAlreadyExists": "Một bài viết với tiêu đề này đã tồn tại"
+  },
+  "not_found": {
+    "article": "Không tìm thấy bài viết",
+    "user": "Không tìm thấy người dùng"
+  }
+}
