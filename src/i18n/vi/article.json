@@ -11,9 +11,5 @@
     "bodyTooLong": "Nội dung không được dài quá {maxLength} ký tự",
     "permissionDenied": "Bạn không có quyền thực hiện hành động này",
     "titleAlreadyExists": "Một bài viết với tiêu đề này đã tồn tại"
-  },
-  "not_found": {
-    "article": "Không tìm thấy bài viết",
-    "user": "Không tìm thấy người dùng"
   }
 }
