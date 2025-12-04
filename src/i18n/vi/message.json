@@ -1,0 +1,13 @@
+{
+  "not_found": {
+    "article": "Không tìm thấy bài viết",
+    "user": "Không tìm thấy người dùng",
+    "comment": "Không tìm thấy bình luận"
+  },
+  "success": {
+    "comment_deleted": "Xóa bình luận thành công"
+  },
+  "error": {
+    "cannot_delete_comment": "Không thể xóa bình luận này"
+  }
+}

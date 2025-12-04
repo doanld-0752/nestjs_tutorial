@@ -11,9 +11,5 @@
     "bodyTooLong": "Body must not be longer than {maxLength} characters",
     "permissionDenied": "You do not have permission to perform this action",
     "titleAlreadyExists": "An article with this title already exists"
-  },
-  "not_found": {
-    "article": "Article not found",
-    "user": "User not found"
   }
 }

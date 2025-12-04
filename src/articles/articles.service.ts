@@ -17,7 +17,7 @@ export class ArticlesService {
   async create(authorId: number, input: CreateArticleDto): Promise<ArticleResponseDto> {
     const author = await this.userService.findById(authorId);
     if (!author) {
-      throw new NotFoundException(this.i18n.translate('article.not_found.user'));
+      throw new NotFoundException(this.i18n.translate('message.not_found.user'));
     }
 
     try {
@@ -68,10 +68,10 @@ export class ArticlesService {
     await this.articleRepo.delete(article.id);
   }
 
-  private async findArticleOrThrow(slug: string) {
+  async findArticleOrThrow(slug: string) {
     const article = await this.articleRepo.findBySlug(slug);
     if (!article) {
-      throw new NotFoundException(this.i18n.translate('article.not_found.article'));
+      throw new NotFoundException(this.i18n.translate('message.not_found.article'));
     }
     return article;
   }

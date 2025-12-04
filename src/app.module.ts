@@ -13,6 +13,7 @@ import { I18nModule, AcceptLanguageResolver, QueryResolver } from 'nestjs-i18n';
 import * as path from 'path';
 import { DEFAULT_I18N_DIR, DEFAULT_LANGUAGE } from 'src/common/constants/app.constants';
 import { ArticlesModule } from './articles/articles.module';
+import { CommentsModule } from './comments/comments.module';
 
 @Module({
   imports: [
@@ -42,6 +43,7 @@ import { ArticlesModule } from './articles/articles.module';
       ],
     }),
     ArticlesModule,
+    CommentsModule,
   ],
   controllers: [AppController],
   providers: [AppService,

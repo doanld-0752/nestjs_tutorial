@@ -1,0 +1,13 @@
+{
+  "not_found": {
+    "article": "Article not found",
+    "user": "User not found",
+    "comment": "Comment not found"
+  },
+  "success": {
+    "comment_deleted": "Comment deleted successfully"
+  },
+  "error": {
+    "cannot_delete_comment": "Cannot delete this comment"
+  }
+}
