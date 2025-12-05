@@ -5,6 +5,9 @@ import { ArticleResponseDto } from './dto/article-response.dto';
 import { UsersService } from '../users/users.service';
 import { I18nService } from 'nestjs-i18n';
 import { ArticlesRepository } from './articles.repository';
+import { PaginatedResult } from 'prisma-pagination';
+import { DEFAULT_PAGE, DEFAULT_PER_PAGE } from 'src/common/constants/app.constants';
+import { Prisma } from '@prisma/client';
 
 @Injectable()
 export class ArticlesService {
@@ -13,6 +16,27 @@ export class ArticlesService {
     private readonly userService: UsersService,
     private readonly i18n: I18nService,
   ) {}
+
+  async findAll(page: number = DEFAULT_PAGE, limit: number = DEFAULT_PER_PAGE, tag?: string): Promise<PaginatedResult<ArticleResponseDto>> {
+    const where: Prisma.ArticleWhereInput = {};
+    if (tag) {
+      where.tags = {
+        some: {
+          tag: {
+            name: tag,
+          },
+        },
+      };
+    }
+    const paginatedArticles = await this.articleRepo.findAll(page, limit, where);
+
+    return {
+      data: paginatedArticles.data.map((article) =>
+        ArticleResponseDto.fromEntity(article)
+      ),
+      meta: paginatedArticles.meta,
+    };
+  }
 
   async create(authorId: number, input: CreateArticleDto): Promise<ArticleResponseDto> {
     const author = await this.userService.findById(authorId);

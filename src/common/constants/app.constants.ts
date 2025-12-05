@@ -17,3 +17,5 @@ export const SETTING_FIELD_LENGTH = {
     TAG_NAME_MAX: 100,
   },
 } as const;
+export const DEFAULT_PAGE = 1;
+export const DEFAULT_PER_PAGE = 20;

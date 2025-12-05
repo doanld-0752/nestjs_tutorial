@@ -1,4 +1,4 @@
-import { Controller, Body, Post, Get, Put, Delete, UseGuards, HttpStatus, Param } from '@nestjs/common';
+import { Controller, Body, Post, Get, Put, Delete, UseGuards, HttpStatus, Param, Query, ParseIntPipe, DefaultValuePipe } from '@nestjs/common';
 import { ArticlesService } from './articles.service';
 import { CreateArticleDto } from './dto/create-article.dto';
 import { UpdateArticleDto } from './dto/update-article.dto';
@@ -6,11 +6,18 @@ import { ArticleResponseDto } from './dto/article-response.dto';
 import { AuthGuard } from '@nestjs/passport';
 import { CurrentUser } from 'src/common/decorators/current-user.decorator';
 import { ApiBearerAuth, ApiBody, ApiOperation, ApiResponse, ApiTags,  ApiParam } from '@nestjs/swagger';
+import { ArticleListQueryDto } from './dto/article-list-query.dto';
 
 @ApiTags('articles')
 @Controller('articles')
 export class ArticlesController {
   constructor(protected articleService: ArticlesService) {}
+
+  @ApiOperation({ summary: 'Get list of articles' })
+  @Get()
+  async getList(@Query() query: ArticleListQueryDto) {
+    return this.articleService.findAll(query.page, query.limit, query.tag);
+  }
 
   @ApiOperation({ summary: 'Create a new article' })
   @ApiBearerAuth()
