@@ -1,13 +1,34 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from 'prisma/prisma.service';
-import type { Article, Tag } from '@prisma/client';
 import defaultSlugify from 'slugify';
 import { CreateArticleDto } from './dto/create-article.dto';
 import { UpdateArticleDto } from './dto/update-article.dto';
+import { Article, Tag, Prisma } from '@prisma/client';
+import { createPaginator } from 'prisma-pagination';
+import { DEFAULT_PER_PAGE } from 'src/common/constants/app.constants';
 
 @Injectable()
 export class ArticlesRepository {
-  constructor(private prisma: PrismaService) {}
+  private readonly paginate = createPaginator({ perPage: DEFAULT_PER_PAGE });
+
+  constructor(
+    private prisma: PrismaService,
+  ) {}
+
+  async findAll(page: number, limit: number, where?: Prisma.ArticleWhereInput) {
+    return this.paginate<Article, Prisma.ArticleFindManyArgs>(
+      this.prisma.article,
+      {
+        where,
+        include: {
+          author: true,
+          tags: { include: { tag: true } },
+        },
+        orderBy: { createdAt: 'desc' },
+      },
+      { page, perPage: limit },
+    );
+  }
 
   async create(authorId: number, input: CreateArticleDto) {
     const tagsToConnect = await this.handleTags(input.tagList || []);
